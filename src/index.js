@@ -37,7 +37,7 @@ client.on('message', async message => {
     const command = client.commands.get(commandName);
 
     try {
-        if (commandName == "emojify") {
+        if (commandName == "emojify" || commandName == "8ball") {
             command.execute(message, {
                 args
             });
