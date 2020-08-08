@@ -2,7 +2,10 @@ const fs = require('fs')
 // require the discord.js module
 const Discord = require('discord.js');
 // require config
-const { prefix, token } = require('../config.json');
+const {
+    prefix,
+    token
+} = require('../config.json');
 const ytdl = require('ytdl-core');
 const Client = require('./client/client');
 // create a new Discord client
@@ -11,16 +14,16 @@ client.commands = new Discord.Collection();
 
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
 for (const file of commandFiles) {
-	const command = require(`./commands/${file}`);
-	client.commands.set(command.name, command);
+    const command = require(`./commands/${file}`);
+    client.commands.set(command.name, command);
 }
 
 client.once('ready', () => {
-	console.log('Ready!');
+    console.log('Ready!');
 });
 
 client.once('reconnecting', () => {
-	console.log('Reconnecting!');
+    console.log('Reconnecting!');
 });
 
 client.once('disconnect', () => {
@@ -34,12 +37,17 @@ client.on('message', async message => {
     const command = client.commands.get(commandName);
 
     try {
-        command.execute(message);
+        if (commandName == "emojify") {
+            command.execute(message, {
+                args
+            });
+        } else {
+            command.execute(message);
+        }
+    } catch (error) {
+        console.error(error);
+        message.reply('There was an error trying to execute that command !');
     }
-    catch (error) {
-		console.error(error);
-		message.reply('There was an error trying to execute that command !');
-	}
 });
 
 // login to Discord with token
