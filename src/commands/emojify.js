@@ -32,8 +32,8 @@ module.exports = {
             let char_matched_emojis = [];
             for (let k = 0; k < keys.length; k += 1) {
                 const key = Object.values(emoji[keys[k]]);
-                let keywords = key[0]['keywords'];
-                console.log(keywords);
+                const keywords = key[k]['keywords'];
+                console.log(key[k]);
                 if (keys[k] === search_term) {
                     matched_emojis.push(keys[k])
                     char_matched_emojis.push(emoji[keys[k]]["char"])
@@ -42,6 +42,7 @@ module.exports = {
                         if (keywords[j] === search_term) {
                             matched_emojis.push(keys[k])
                             char_matched_emojis.push(emoji[keys[k]]["char"])
+
                         }
                     }
                 }
