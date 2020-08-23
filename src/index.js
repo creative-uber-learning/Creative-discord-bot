@@ -45,6 +45,8 @@ client.on('message', async message => {
             command.execute(message);
         }
     } catch (error) {
+        if (command === undefined)
+            message.reply('Command unknown');
         console.error(error);
         message.reply('There was an error trying to execute that command !');
     }
